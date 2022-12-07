@@ -1,0 +1,35 @@
+using Microsoft.Xna.Framework;
+using System;
+using System.Collections.Generic;
+using System.Linq;
+using System.Text;
+using System.Threading.Tasks;
+
+namespace Snake
+{
+    public class Snake
+    {
+        public List<Vector2> _V2;
+
+        public Snake(List<Vector2> V2)
+        {
+            _V2 = V2;
+        }
+        public void extension()
+        {
+            Vector2 EndOfSnake = _V2[_V2.Count];
+            Vector2 AlmostEndOfSnake = _V2[_V2.Count - 1];
+            EndOfSnake.Deconstruct(out float x1, out float y1);
+            AlmostEndOfSnake.Deconstruct(out float x2, out float y2);
+            float test1 = x1 - x2;
+            float test2 = y1 - y2;
+
+        }
+        
+        public int scoreboard()
+        {
+            return 1;
+        }
+    }
+
+}
