@@ -15,11 +15,17 @@ namespace Snake
         public List<Vector2> _V2;
         KeyboardState currentKeyboardState;
         Keys _keys;
-        public Snake(List<Vector2> V2)
+        public Snake()
         {
-            _V2 = V2;
-            
+           _V2 = new List<Vector2>();
+           _V2.Add(new Vector2(512, 512));
         }
+
+        public void Update(KeyboardState KeyboardState)
+        {
+            currentKeyboardState = KeyboardState;
+        }
+
         public void move()
         {
             
@@ -172,6 +178,11 @@ namespace Snake
         public int scoreboard()
         {
             return 1;
+        }
+
+        public void AddSnakePart()
+        {
+            
         }
     }
 
