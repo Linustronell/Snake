@@ -235,6 +235,15 @@ namespace Snake
                 Snoke.extension();
             }
         }
+
+        public void WallCollison()
+        {
+            _V2[0][0].Deconstruct(out float X, out float Y);
+            if(X < 0 || Y < 0)
+            {
+                Game1.self.Exit();
+            }
+        }
     }
 
 }
