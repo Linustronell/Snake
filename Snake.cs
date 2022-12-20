@@ -12,13 +12,23 @@ namespace Snake
 {
     public class Snake
     {
-        public List<Vector2> _V2;
+        public List<List<Vector2>> _V2;
         KeyboardState currentKeyboardState;
         Keys _keys;
         public Snake()
         {
-           _V2 = new List<Vector2>();
-           _V2.Add(new Vector2(512, 512));
+            _V2 = new List<List<Vector2>>();
+            _V2[0].Add(new Vector2(0, 0));
+            _keys = Keys.W;
+        }
+        public void create()
+        {
+            
+            //_V2[0][0].Deconstruct(out float X, out float Y);
+            ////_V2[0][1] = new Vector2(X + 50, Y);
+            ////_V2[0][2] = new Vector2(X + 50, Y + 50);
+            ////_V2[0][3] = new Vector2(X, Y + 50);
+
         }
 
         public void Update(KeyboardState KeyboardState)
@@ -28,32 +38,56 @@ namespace Snake
 
         public void move()
         {
-            
             if (currentKeyboardState.IsKeyDown(Keys.D))
             {
-                Vector2 StartV = _V2[0];
-                _V2[0].Deconstruct(out float X, out float Y);
-                X++;
-                _V2[0] = new Vector2(X, Y);
+                List<Vector2> StartV = _V2[0];
+                for (int i = 0; i < 4; i++)
+                {
+                    _V2[0][i].Deconstruct(out float X, out float Y);
+                    X = X + 50;
+                    _V2[0][i] = new Vector2(X, Y);
+                }
                 
                 for (int i = 1; i < _V2.Count; i++)
                 {
-                    Vector2 CounterV = _V2[i];
+                    List<Vector2> CounterV = _V2[i];
                     _V2[i] = StartV;
                     StartV = CounterV;
                 }
+
                 _keys = Keys.D;
             }
-            if (currentKeyboardState.IsKeyDown(Keys.A))
+            if (currentKeyboardState.IsKeyDown(Keys.S))
             {
-                Vector2 StartV = _V2[0];
-                _V2[0].Deconstruct(out float X, out float Y);
-                X--;
-                _V2[0] = new Vector2(X, Y);
+                List<Vector2> StartV = _V2[0];
+                for (int i = 0; i < 4; i++)
+                {
+                    _V2[0][i].Deconstruct(out float X, out float Y);
+                    Y = Y - 50;
+                    _V2[0][i] = new Vector2(X, Y);
+                }
 
                 for (int i = 1; i < _V2.Count; i++)
                 {
-                    Vector2 CounterV = _V2[i];
+                    List<Vector2> CounterV = _V2[i];
+                    _V2[i] = StartV;
+                    StartV = CounterV;
+                }
+                _keys = Keys.S;
+            }
+            if (currentKeyboardState.IsKeyDown(Keys.A))
+            {
+                List<Vector2> StartV = _V2[0];
+                for (int i = 0; i < 4; i++)
+                {
+                    _V2[0][i].Deconstruct(out float X, out float Y);
+                    X = X - 50;
+                    _V2[0][i] = new Vector2(X, Y);
+                }
+
+                for (int i = 1; i < _V2.Count; i++)
+                {
+                    List<Vector2> CounterV = _V2[i];
                     _V2[i] = StartV;
                     StartV = CounterV;
                 }
@@ -61,128 +95,145 @@ namespace Snake
             }
             if (currentKeyboardState.IsKeyDown(Keys.W))
             {
-                Vector2 StartV = _V2[0];
-                _V2[0].Deconstruct(out float X, out float Y);
-                Y++;
-                _V2[0] = new Vector2(X, Y);
+                List<Vector2> StartV = _V2[0];
+                for (int i = 0; i < 4; i++)
+                {
+                    _V2[0][i].Deconstruct(out float X, out float Y);
+                    Y = Y + 50;
+                    _V2[0][i] = new Vector2(X, Y);
+                }
 
                 for (int i = 1; i < _V2.Count; i++)
                 {
-                    Vector2 CounterV = _V2[i];
+                    List<Vector2> CounterV = _V2[i];
                     _V2[i] = StartV;
                     StartV = CounterV;
                 }
                 _keys = Keys.W;
             }
-            if (currentKeyboardState.IsKeyDown(Keys.S))
-            {
-                Vector2 StartV = _V2[0];
-                _V2[0].Deconstruct(out float X, out float Y);
-                Y--;
-                _V2[0] = new Vector2(X, Y);
-
-                for (int i = 1; i < _V2.Count; i++)
-                {
-                    Vector2 CounterV = _V2[i];
-                    _V2[i] = StartV;
-                    StartV = CounterV;
-                }
-                _keys = Keys.S;
-            }
             else
             {
                 if (_keys == Keys.D)
                 {
-                    Vector2 StartV = _V2[0];
-                    _V2[0].Deconstruct(out float X, out float Y);
-                    X++;
-                    _V2[0] = new Vector2(X, Y);
+                    List<Vector2> StartV = _V2[0];
+                    for (int i = 0; i < 4; i++)
+                    {
+                        _V2[0][i].Deconstruct(out float X, out float Y);
+                        X = X + 50;
+                        _V2[0][i] = new Vector2(X, Y);
+                    }
 
                     for (int i = 1; i < _V2.Count; i++)
                     {
-                        Vector2 CounterV = _V2[i];
+                        List<Vector2> CounterV = _V2[i];
+                        _V2[i] = StartV;
+                        StartV = CounterV;
+                    }
+                    _keys = Keys.D;
+                }
+                if (_keys == Keys.S)
+                {
+                    List<Vector2> StartV = _V2[0];
+                    for (int i = 0; i < 4; i++)
+                    {
+                        _V2[0][i].Deconstruct(out float X, out float Y);
+                        Y = Y - 50;
+                        _V2[0][i] = new Vector2(X, Y);
+                    }
+
+                    for (int i = 1; i < _V2.Count; i++)
+                    {
+                        List<Vector2> CounterV = _V2[i];
                         _V2[i] = StartV;
                         StartV = CounterV;
                     }
                 }
                 if (_keys == Keys.A)
                 {
-                    Vector2 StartV = _V2[0];
-                    _V2[0].Deconstruct(out float X, out float Y);
-                    X--;
-                    _V2[0] = new Vector2(X, Y);
+                    List<Vector2> StartV = _V2[0];
+                    for (int i = 0; i < 4; i++)
+                    {
+                        _V2[0][i].Deconstruct(out float X, out float Y);
+                        X = X - 50;
+                        _V2[0][i] = new Vector2(X, Y);
+                    }
 
                     for (int i = 1; i < _V2.Count; i++)
                     {
-                        Vector2 CounterV = _V2[i];
+                        List<Vector2> CounterV = _V2[i];
                         _V2[i] = StartV;
                         StartV = CounterV;
                     }
                 }
                 if (_keys == Keys.W)
                 {
-                    Vector2 StartV = _V2[0];
-                    _V2[0].Deconstruct(out float X, out float Y);
-                    Y++;
-                    _V2[0] = new Vector2(X, Y);
+                    List<Vector2> StartV = _V2[0];
+                    for (int i = 0; i < 4; i++)
+                    {
+                        _V2[0][i].Deconstruct(out float X, out float Y);
+                        Y = Y + 50;
+                        _V2[0][i] = new Vector2(X, Y);
+                    }
 
                     for (int i = 1; i < _V2.Count; i++)
                     {
-                        Vector2 CounterV = _V2[i];
+                        List<Vector2> CounterV = _V2[i];
                         _V2[i] = StartV;
                         StartV = CounterV;
                     }
                 }
-                if (_keys == Keys.S)
-                {
-                    Vector2 StartV = _V2[0];
-                    _V2[0].Deconstruct(out float X, out float Y);
-                    Y--;
-                    _V2[0] = new Vector2(X, Y);
 
-                    for (int i = 1; i < _V2.Count; i++)
-                    {
-                        Vector2 CounterV = _V2[i];
-                        _V2[i] = StartV;
-                        StartV = CounterV;
-                    }
-                }
             }
         }
         public void extension()
         {
-            Vector2 EndOfSnake = _V2[_V2.Count];
-            Vector2 AlmostEndOfSnake = _V2[_V2.Count - 1];
+            Vector2 EndOfSnake = _V2[_V2.Count][0];
+            Vector2 AlmostEndOfSnake = _V2[_V2.Count - 1][0];
             EndOfSnake.Deconstruct(out float x1, out float y1);
             AlmostEndOfSnake.Deconstruct(out float x2, out float y2);
             float test1 = x1 - x2;
             float test2 = y1 - y2;
-            if(test1 == 0)
+            List<Vector2> L = new List<Vector2>();
+            if (test1 == 0)
             {
-                if(test2 < 0)
+                if (test2 < 0)
                 {
-                    _V2.Add(new Vector2(x1, y1 - 1));
+                    L.Add(new Vector2(x1, y1 + 1));
+                    _V2.Add(L);
                 }
-                else
+                else if (test2 > 0)
                 {
-                    _V2.Add(new Vector2(x1, y1 + 1));
+                    L.Add(new Vector2(x1, y1 - 1));
+                    _V2.Add(L);
                 }
             }
-            if(test2 == 0)
+            else if (test2 == 0)
             {
+                if (test1 < 0)
+                {
+                    L.Add(new Vector2(x1 + 1, y1));
+                    _V2.Add(L);
+                }
+                else if (test1 > 0)
+                {
+                    L.Add(new Vector2(x1 - 1, y1));
+                    _V2.Add(L);
+                }
+            }
 
-            }
-            
         }
         
         public int scoreboard()
         {
-            return 1;
+            return _V2.Count;
         }
 
-        public void AddSnakePart()
+        public void AddSnakePart(Food Food, Snake Snoke)
         {
-            
+            if (_V2[0][0] == Food._position)
+            {
+                Snoke.extension();
+            }
         }
     }
 
