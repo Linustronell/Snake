@@ -1,7 +1,8 @@
-using Microsoft.Xna.Framework;
+﻿using Microsoft.Xna.Framework;
 using Microsoft.Xna.Framework.Graphics;
 using Microsoft.Xna.Framework.Input;
 using System;
+using System.Threading;
 
 namespace Snake2
 {
@@ -10,8 +11,9 @@ namespace Snake2
         private GraphicsDeviceManager _graphics;
         private SpriteBatch _spriteBatch;
         Random r = new Random();
-
-        Food food = null;
+        Snake Snoke = new Snake();
+        Food food = new Food();
+        public static Game1 self;
 
         public Game1()
         {
@@ -31,6 +33,10 @@ namespace Snake2
         {
             _spriteBatch = new SpriteBatch(GraphicsDevice);
             food = new Food(r);
+            _graphics.PreferredBackBufferHeight = 800;
+            _graphics.PreferredBackBufferWidth = 800;
+            //16
+            _graphics.ApplyChanges();
 
             // TODO: use this.Content to load your game content here
         }
@@ -40,16 +46,20 @@ namespace Snake2
             if (GamePad.GetState(PlayerIndex.One).Buttons.Back == ButtonState.Pressed || Keyboard.GetState().IsKeyDown(Keys.Escape))
                 Exit();
 
+            Snoke.Update(Keyboard.GetState());
+            Snoke.extension();
+            Snoke.WallCollision();
+            Snoke.move();
             // TODO: Add your update logic here
-
             base.Update(gameTime);
         }
 
         protected override void Draw(GameTime gameTime)
         {
-            GraphicsDevice.Clear(Color.CornflowerBlue);
+            GraphicsDevice.Clear(Color.DarkGray);
 
             // TODO: Add your drawing code here
+            
 
             base.Draw(gameTime);
         }
