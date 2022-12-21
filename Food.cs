@@ -8,6 +8,7 @@ using System.Linq;
 using System.Text;
 using System.Threading.Tasks;
 using System.Reflection.Metadata;
+using System.Diagnostics;
 
 namespace Snake2
 {
@@ -35,8 +36,9 @@ namespace Snake2
                 float mouseTargetDist = Vector2.Distance(_foodPos, mState.Position.ToVector2());
                 if (mouseTargetDist < _appleTexture.Width)
                 {
-                    _foodPos.X = positionArray[_rand.Next(0, 15)];
-                    _foodPos.Y = positionArray[_rand.Next(0, 15)];
+                    _foodPos.X = positionArray[_rand.Next(0, positionArray.Length)];
+                    _foodPos.Y = positionArray[_rand.Next(0, positionArray.Length)];
+                    Debug.Write(_foodPos);
                 }
                 mRealeased = false;
             }
@@ -45,11 +47,14 @@ namespace Snake2
             {
                 mRealeased = true;
             }
+
+
+       
         }
 
-        public void Draw(SpriteBatch spriteBatch)
+        public void Draw(SpriteBatch _spriteBatch)
         {
-            spriteBatch.Draw(_appleTexture, _foodPos, Color.White);
+            _spriteBatch.Draw(_appleTexture, _foodPos, null, Color.White, 0f, new Vector2(_appleTexture.Width, _appleTexture.Height), Vector2.One, SpriteEffects.None, 0f);
         }
 
     }
