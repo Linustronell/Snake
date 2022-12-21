@@ -2,6 +2,7 @@ using Microsoft.Xna.Framework;
 using Microsoft.Xna.Framework.Graphics;
 using Microsoft.Xna.Framework.Input;
 using System;
+using System.Diagnostics;
 
 namespace Snake2
 {
@@ -9,9 +10,10 @@ namespace Snake2
     {
         private GraphicsDeviceManager _graphics;
         private SpriteBatch _spriteBatch;
-
         //Apple
         private Food apple;
+
+        Texture2D block;
 
 
         public Game1()
@@ -37,9 +39,10 @@ namespace Snake2
             _graphics.ApplyChanges();
 
             var appleTexture = Content.Load<Texture2D>("apple");
+            block = Content.Load<Texture2D>("block");
 
             apple = new Food(appleTexture);
-            apple._foodPos = new Vector2(400, 400);
+            apple._foodPos = new Vector2(50, 50);
         }
 
         protected override void Update(GameTime gameTime)
@@ -54,10 +57,18 @@ namespace Snake2
 
         protected override void Draw(GameTime gameTime)
         {
-            GraphicsDevice.Clear(Color.CornflowerBlue);
+            GraphicsDevice.Clear(Color.Black);
 
             _spriteBatch.Begin();
             apple.Draw(_spriteBatch);
+
+            for (int i = 0; i < _graphics.PreferredBackBufferWidth; i += 50)
+            {
+                for (int z = 0; z < _graphics.PreferredBackBufferHeight; z+=50)
+                {
+                    _spriteBatch.Draw(block, new Vector2(i, z), Color.White);
+                }
+            }
             _spriteBatch.End();
 
             base.Draw(gameTime);
