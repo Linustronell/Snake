@@ -10,8 +10,9 @@ namespace Snake2
     {
         private GraphicsDeviceManager _graphics;
         private SpriteBatch _spriteBatch;
-        //Apple
+
         private Food apple;
+        private Snake snake;
 
         Texture2D block;
 
@@ -28,6 +29,7 @@ namespace Snake2
             // TODO: Add your initialization logic here
 
             base.Initialize();
+            snake._speed = 50f;
         }
 
         protected override void LoadContent()
@@ -38,11 +40,19 @@ namespace Snake2
             _graphics.PreferredBackBufferHeight = 800;
             _graphics.ApplyChanges();
 
+            //Food
             var appleTexture = Content.Load<Texture2D>("apple");
+            apple = new Food(appleTexture);
+            apple._foodPos = new Vector2(500, 500);
+
+            //SnakeHead
+            var snakeHeadTexture = Content.Load<Texture2D>("SnakeHead");
+            snake = new Snake(snakeHeadTexture);
+            snake._snakePos = new Vector2(500, 400);
+
+            //Grid
             block = Content.Load<Texture2D>("block");
 
-            apple = new Food(appleTexture);
-            apple._foodPos = new Vector2(50, 50);
         }
 
         protected override void Update(GameTime gameTime)
@@ -51,6 +61,7 @@ namespace Snake2
                 Exit();
 
             apple.Update();
+            snake.Update();
 
             base.Update(gameTime);
         }
@@ -61,10 +72,12 @@ namespace Snake2
 
             _spriteBatch.Begin();
             apple.Draw(_spriteBatch);
+            snake.Draw(_spriteBatch);
+            
 
             for (int i = 0; i < _graphics.PreferredBackBufferWidth; i += 50)
             {
-                for (int z = 0; z < _graphics.PreferredBackBufferHeight; z+=50)
+                for (int z = 0; z < _graphics.PreferredBackBufferHeight; z += 50)
                 {
                     _spriteBatch.Draw(block, new Vector2(i, z), Color.White);
                 }
